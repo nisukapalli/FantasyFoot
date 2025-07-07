@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 from .base import Base
 
 class Club(Base):
@@ -12,3 +13,7 @@ class Club(Base):
     country = Column(String(50))
     stadium = Column(String(100))
     crest_url = Column(String(255))
+    
+    squad = relationship("Footballer")
+    home_matches = relationship("Match", foreign_keys="Match.home_team_id")
+    away_matches = relationship("Match", foreign_keys="Match.away_team_id")

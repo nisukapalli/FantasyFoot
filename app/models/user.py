@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
 from .base import Base
 
 class User(Base):
@@ -14,3 +15,6 @@ class User(Base):
     is_admin = Column(Boolean, default=False)
     last_login = Column(DateTime(timezone=True), nullable=True)
     avatar_url = Column(String(255), nullable=True)
+    
+    team = relationship("Team")
+    admin_leagues = relationship("League", foreign_keys="League.admin_id")
