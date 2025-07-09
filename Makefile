@@ -31,11 +31,11 @@ clean:
 
 # Initialize database
 init-db:
-	python scripts/init_db.py
+	python3 scripts/init_db.py
 
 # Import EPL data
 import-data:
-	python scripts/import_data.py
+	python3 scripts/import_data.py
 
 # Complete setup
 setup: install init-db import-data
