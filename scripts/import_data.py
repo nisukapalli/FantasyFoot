@@ -31,13 +31,10 @@ def import_data():
         db.commit()
         print(f"Imported {club_count} clubs")
 
-        # Import players
         for _, row in epl_players_df.iterrows():
-            # Skip coaches (element_type == 5)
             if row["element_type"] == 5:
                 continue
                 
-            # Skip players without valid data
             if pd.isna(row["web_name"]) or pd.isna(row["element_type"]):
                 continue
                 

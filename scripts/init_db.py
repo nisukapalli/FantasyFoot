@@ -5,26 +5,22 @@ Database initialization script for Fantasy Soccer App
 
 import sys
 import os
-
-# Add the project root to the Python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from app.models import create_tables
 from app.models.base import SessionLocal
 from app.models.user import User
 from app.auth.jwt import get_password_hash
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 def create_admin_user():
     """Create a default admin user"""
     db = SessionLocal()
     try:
-        # Check if admin user already exists
         admin = db.query(User).filter(User.username == "admin").first()
         if admin:
             print("Admin user already exists")
             return
         
-        # Create admin user
         admin_user = User(
             username="admin",
             email="admin@fantasysoccer.com",
