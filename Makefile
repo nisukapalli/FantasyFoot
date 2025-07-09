@@ -42,13 +42,13 @@ setup: install init-db import-data
 	@echo "Setup complete! Run 'make run' to start the server."
 
 up:
-	docker-compose up
+	docker-compose up -d
 
 build:
-	docker-compose up --build
+	docker-compose up --build -d
 
 down:
-	docker-compose down
+	docker-compose down -v
 
 logs:
 	docker-compose logs -f
