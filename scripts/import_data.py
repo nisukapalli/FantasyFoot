@@ -8,8 +8,8 @@ POSITION_MAP = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD"}
 
 def import_data():
     """Import EPL clubs and players data"""
-    epl_players_df = pd.read_csv("~/FantasyFoot/data/epl_players_raw.csv")
-    epl_clubs_df = pd.read_csv("~/FantasyFoot/data/epl_clubs.csv")
+    epl_players_df = pd.read_csv("data/epl_players_raw.csv")
+    epl_clubs_df = pd.read_csv("data/epl_clubs.csv")
     club_count = 0
     footballer_count = 0
 
