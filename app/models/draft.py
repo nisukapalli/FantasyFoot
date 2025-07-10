@@ -18,7 +18,7 @@ class Draft(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     league = relationship("League")
-    picks = relationship("DraftPick", back_populates="draft")
+    picks = relationship("DraftPick", back_populates="draft", cascade="all, delete-orphan")
 
 class DraftPick(Base):
     __tablename__ = "draft_picks"
