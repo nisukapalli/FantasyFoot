@@ -18,6 +18,22 @@ def get_db():
     finally:
         db.close()
 
+# def handle_league_admin_reassignment(db: Session, league: League, user_id: int):
+#     """Handle admin reassignment when a user is removed from a league"""
+#     other_team = db.query(Team).filter(
+#         Team.league_id == league.id,
+#         Team.user_id != user_id
+#     ).first()
+    
+#     if other_team:
+#         league.admin_id = other_team.user_id
+#         db.commit()
+#         return True
+#     else:
+#         db.delete(league)
+#         db.commit()
+#         return False
+
 @router.get("/", response_model=List[TeamResponse])
 def read_teams(
     skip: int = 0,
@@ -76,6 +92,35 @@ def update_team(
     db.commit()
     db.refresh(team)
     return team
+
+# @router.delete("/{team_id}")
+# def delete_team(
+#     team_id: int,
+#     db: Session = Depends(get_db),
+#     current_user: User = Depends(get_current_active_user)
+# ):
+#     """Delete team (owner only)"""
+#     team = db.query(Team).filter(Team.id == team_id).first()
+#     if team is None:
+#         raise HTTPException(status_code=404, detail="Team not found")
+    
+#     if team.user_id != current_user.id:
+#         raise HTTPException(
+#             status_code=status.HTTP_403_FORBIDDEN,
+#             detail="You can only delete your own teams"
+#         )
+    
+#     # Check if user is admin of this league and handle admin reassignment
+#     league = db.query(League).filter(League.id == team.league_id).first()
+#     if league.admin_id == current_user.id:
+#         admin_reassigned = handle_league_admin_reassignment(db, league, current_user.id)
+#         if not admin_reassigned:
+#             return {"message": "Team and league deleted successfully (no other users in league)"}
+    
+#     db.delete(team)
+#     db.commit()
+    
+#     return {"message": "Team deleted successfully"}
 
 @router.get("/league/{league_id}", response_model=List[TeamResponse])
 def read_league_teams(

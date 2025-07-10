@@ -165,3 +165,39 @@ def update_league(
     db.commit()
     db.refresh(league)
     return league
+
+# @router.post("/{league_id}/reassign-admin/{new_admin_id}")
+# def reassign_league_admin(
+#     league_id: int,
+#     new_admin_id: int,
+#     db: Session = Depends(get_db),
+#     current_user: User = Depends(get_current_active_user)
+# ):
+#     """Reassign league admin to another user (current admin only)"""
+#     league = db.query(League).filter(League.id == league_id).first()
+#     if league is None:
+#         raise HTTPException(status_code=404, detail="League not found")
+    
+#     if league.admin_id != current_user.id:
+#         raise HTTPException(
+#             status_code=status.HTTP_403_FORBIDDEN,
+#             detail="Only current admin can reassign admin role"
+#         )
+    
+#     # Check if new admin exists and has a team in this league
+#     new_admin_team = db.query(Team).filter(
+#         Team.league_id == league_id,
+#         Team.user_id == new_admin_id
+#     ).first()
+    
+#     if not new_admin_team:
+#         raise HTTPException(
+#             status_code=status.HTTP_400_BAD_REQUEST,
+#             detail="New admin must have a team in this league"
+#         )
+    
+#     # Reassign admin
+#     league.admin_id = new_admin_id
+#     db.commit()
+    
+#     return {"message": "League admin reassigned successfully"}
