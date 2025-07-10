@@ -19,6 +19,6 @@ class League(Base):
     status = Column(String(20), nullable=False, default="active")
     
     admin = relationship("User")
-    teams = relationship("Team")
-    trades = relationship("Trade")
-    drafts = relationship("Draft")
+    teams = relationship("Team", cascade="all, delete-orphan")
+    trades = relationship("Trade", cascade="all, delete-orphan")
+    drafts = relationship("Draft", cascade="all, delete-orphan")

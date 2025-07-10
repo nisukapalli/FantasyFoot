@@ -16,5 +16,5 @@ class User(Base):
     last_login = Column(DateTime(timezone=True), nullable=True)
     avatar_url = Column(String(255), nullable=True)
     
-    team = relationship("Team")
+    teams = relationship("Team", back_populates="user", cascade="all, delete-orphan")
     admin_leagues = relationship("League", foreign_keys="League.admin_id")

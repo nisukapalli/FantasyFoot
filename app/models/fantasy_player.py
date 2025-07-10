@@ -17,4 +17,4 @@ class FantasyPlayer(Base):
     removed_at = Column(DateTime(timezone=True), nullable=True)
     
     team = relationship("Team", back_populates="fantasy_players")
-    footballer = relationship("Footballer") 
+    footballer = relationship("Footballer")
