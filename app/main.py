@@ -10,29 +10,25 @@ from app.api import (
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
     create_tables()
     yield
-    # Shutdown
     pass
 
 app = FastAPI(
     title="Fantasy Soccer API",
-    description="A comprehensive fantasy soccer application backend",
+    description="A fantasy soccer application backend",
     version="1.0.0",
     lifespan=lifespan
 )
 
-# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify actual origins
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include routers
 app.include_router(auth_router)
 app.include_router(users_router)
 app.include_router(leagues_router)
